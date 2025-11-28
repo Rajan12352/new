@@ -1,16 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Bot, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+
     return (
         <nav className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-4 flex h-16 items-center justify-between">
@@ -49,49 +46,42 @@ export function Navbar() {
             </div>
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
-                {isMobileMenuOpen && mounted && createPortal(
+                {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center md:hidden"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="md:hidden border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 overflow-hidden"
                     >
-                        <div className="absolute top-4 right-4">
-                            <button
-                                className="p-2"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                <X className="h-6 w-6" />
-                            </button>
-                        </div>
-                        <div className="flex flex-col gap-8 text-center">
+                        <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
                             <Link
                                 href="#features"
-                                className="text-2xl font-medium hover:text-primary transition-colors"
+                                className="text-lg font-medium py-2 hover:text-primary transition-colors border-b border-border/10"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Features
                             </Link>
                             <Link
                                 href="#pricing"
-                                className="text-2xl font-medium hover:text-primary transition-colors"
+                                className="text-lg font-medium py-2 hover:text-primary transition-colors border-b border-border/10"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Pricing
                             </Link>
                             <Link
                                 href="#about"
-                                className="text-2xl font-medium hover:text-primary transition-colors"
+                                className="text-lg font-medium py-2 hover:text-primary transition-colors border-b border-border/10"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 About
                             </Link>
-                            <Button asChild size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 mt-4">
-                                <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
-                            </Button>
+                            <div className="pt-2">
+                                <Button asChild className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                                    <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+                                </Button>
+                            </div>
                         </div>
-                    </motion.div>,
-                    document.body
+                    </motion.div>
                 )}
             </AnimatePresence>
             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary to-secondary opacity-50"></div>
