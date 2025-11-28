@@ -45,7 +45,8 @@ export function Contact() {
                     setIsSubmitted(false);
                 }, 5000);
             } else {
-                throw new Error('Failed to send message');
+                const errorData = data;
+                throw new Error(errorData.message || 'Failed to send message');
             }
         } catch (error) {
             console.error('Error submitting form:', error);
