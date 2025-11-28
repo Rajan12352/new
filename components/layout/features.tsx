@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import {
     Zap,
@@ -19,7 +18,6 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-
 const features = [
     {
         title: "AI Process Automation",
@@ -112,20 +110,17 @@ const features = [
         shadowColor: "hover:shadow-cyan-500/20"
     },
 ];
-
 const stats = [
     { value: "10,000+", label: "Active Businesses", icon: Users },
     { value: "500M+", label: "Tasks Automated", icon: Zap },
     { value: "95%", label: "Time Saved", icon: TrendingUp },
     { value: "3.5x", label: "ROI Average", icon: Target },
 ];
-
 export function Features() {
     return (
-        <section id="features" className="py-20 md:py-32 relative overflow-hidden">
+        <section id="features" className="py-12 md:py-32 relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute inset-0 bg-muted/30 -z-10"></div>
-
             <div className="container mx-auto px-4">
                 {/* Section header */}
                 <motion.div
@@ -146,7 +141,6 @@ export function Features() {
                         Comprehensive automation tools designed to help your business grow faster and more efficiently.
                     </p>
                 </motion.div>
-
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-5xl mx-auto">
                     {stats.map((stat, index) => (
@@ -168,9 +162,8 @@ export function Features() {
                         </motion.div>
                     ))}
                 </div>
-
                 {/* Features grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
