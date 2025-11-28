@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,23 +7,17 @@ import { ParticleBackground } from "@/components/ui/particle-background";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { useLiveStats } from "@/hooks/use-live-stats";
 import { Badge } from "@/components/ui/badge";
-
-
 export function Hero() {
     const { stats, isLoading } = useLiveStats(30000); // Refresh every 30 seconds
-
     return (
-        <section className="relative overflow-hidden pt-20 md:pt-28 lg:pt-36 pb-16 md:pb-24">
+        <section className="relative overflow-hidden pt-24 md:pt-28 lg:pt-36 pb-16 md:pb-24">
             {/* Particle background */}
             <ParticleBackground particleCount={30} className="opacity-40" />
-
             {/* Animated background gradients removed for cleaner theme */}
             <div className="absolute inset-0 -z-10">
             </div>
-
             {/* Grid pattern overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] -z-10"></div>
-
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
                     {/* Left column - Text content */}
@@ -34,20 +27,19 @@ export function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium backdrop-blur-sm mb-6"
+                            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium backdrop-blur-sm mb-6 max-w-full"
                         >
-                            <Sparkles className="h-4 w-4 text-primary" />
-                            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            <Sparkles className="h-4 w-4 text-primary shrink-0" />
+                            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent truncate">
                                 Powered by AutoGrow • Trusted by 10,000+ Businesses
                             </span>
                         </motion.div>
-
                         {/* Main heading */}
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight"
+                            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight"
                         >
                             <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
                                 Complete Automation
@@ -57,7 +49,6 @@ export function Hero() {
                                 For Every Business
                             </span>
                         </motion.h1>
-
                         {/* Description */}
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -67,7 +58,6 @@ export function Hero() {
                         >
                             CRM, Marketing, Sales, Funnels, Chatbots, Workflows, and AI-driven automation—all in one powerful platform.
                         </motion.p>
-
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -76,7 +66,6 @@ export function Hero() {
                         >
                             Transform your business with intelligent automation that works 24/7. No coding required. Scale faster, work smarter, grow bigger.
                         </motion.p>
-
                         {/* CTA Buttons */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -96,7 +85,6 @@ export function Hero() {
                                 </Button>
                             </div>
                         </motion.div>
-
                         {/* Stats */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -116,8 +104,7 @@ export function Hero() {
                                     </span>
                                 )}
                             </div>
-
-                            <div className="grid grid-cols-3 gap-6 md:gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                                 <div className="flex flex-col items-center lg:items-start">
                                     <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1">
                                         {isLoading ? (
@@ -161,7 +148,6 @@ export function Hero() {
                             </div>
                         </motion.div>
                     </div>
-
                     {/* Right column - 3D Bot Illustration */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -171,7 +157,6 @@ export function Hero() {
                     >
                         {/* Glow effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-3xl"></div>
-
                         {/* SVG Bot Illustration */}
                         <div className="relative w-full max-w-lg aspect-square">
                             <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -183,11 +168,9 @@ export function Hero() {
                                     {/* Main body */}
                                     <rect x="120" y="180" width="160" height="140" rx="20" fill="url(#gradient1)" />
                                     <rect x="120" y="180" width="160" height="140" rx="20" stroke="url(#gradient2)" strokeWidth="2" opacity="0.5" />
-
                                     {/* Head */}
                                     <rect x="140" y="100" width="120" height="100" rx="15" fill="url(#gradient1)" />
                                     <rect x="140" y="100" width="120" height="100" rx="15" stroke="url(#gradient2)" strokeWidth="2" opacity="0.5" />
-
                                     {/* Eyes */}
                                     <circle cx="170" cy="140" r="12" fill="#6366f1" />
                                     <circle cx="230" cy="140" r="12" fill="#6366f1" />
@@ -207,10 +190,8 @@ export function Hero() {
                                         animate={{ scale: [1, 0.8, 1] }}
                                         transition={{ duration: 2, repeat: Infinity }}
                                     />
-
                                     {/* Smile */}
                                     <path d="M 170 165 Q 200 175 230 165" stroke="#6366f1" strokeWidth="3" strokeLinecap="round" fill="none" />
-
                                     {/* Antenna */}
                                     <line x1="200" y1="100" x2="200" y2="70" stroke="url(#gradient2)" strokeWidth="3" strokeLinecap="round" />
                                     <motion.circle
@@ -221,18 +202,15 @@ export function Hero() {
                                         animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
                                         transition={{ duration: 1.5, repeat: Infinity }}
                                     />
-
                                     {/* Arms */}
                                     <rect x="80" y="200" width="40" height="80" rx="10" fill="url(#gradient1)" />
                                     <rect x="280" y="200" width="40" height="80" rx="10" fill="url(#gradient1)" />
-
                                     {/* Chest panel */}
                                     <rect x="160" y="220" width="80" height="60" rx="8" fill="rgba(99, 102, 241, 0.1)" stroke="#6366f1" strokeWidth="1" />
                                     <line x1="170" y1="235" x2="230" y2="235" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
                                     <line x1="170" y1="250" x2="230" y2="250" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
                                     <line x1="170" y1="265" x2="230" y2="265" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
                                 </motion.g>
-
                                 {/* Floating elements */}
                                 <motion.g
                                     animate={{ y: [0, -15, 0], opacity: [0.5, 1, 0.5] }}
@@ -241,7 +219,6 @@ export function Hero() {
                                     <circle cx="80" cy="150" r="4" fill="#6366f1" />
                                     <circle cx="90" cy="160" r="3" fill="#06b6d4" />
                                 </motion.g>
-
                                 <motion.g
                                     animate={{ y: [0, -15, 0], opacity: [0.5, 1, 0.5] }}
                                     transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
@@ -249,7 +226,6 @@ export function Hero() {
                                     <circle cx="320" cy="140" r="4" fill="#f472b6" />
                                     <circle cx="310" cy="150" r="3" fill="#6366f1" />
                                 </motion.g>
-
                                 <motion.g
                                     animate={{ y: [0, -15, 0], opacity: [0.5, 1, 0.5] }}
                                     transition={{ duration: 2, repeat: Infinity, delay: 1 }}
@@ -257,7 +233,6 @@ export function Hero() {
                                     <circle cx="100" cy="280" r="3" fill="#06b6d4" />
                                     <circle cx="300" cy="270" r="4" fill="#f472b6" />
                                 </motion.g>
-
                                 {/* Gradients */}
                                 <defs>
                                     <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
