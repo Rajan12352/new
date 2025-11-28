@@ -29,7 +29,15 @@ export function Contact() {
                 },
                 body: JSON.stringify(formData),
             });
-            const data = await response.json();
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                // If JSON parsing fails, use the raw text
+                console.error('Failed to parse JSON response', e);
+                throw new Error(`Server Error (${response.status}): Invalid response format`);
+            }
+            console.log('API Response:', response.status, data);
             if (response.ok) {
                 setIsSubmitted(true);
                 setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" });
@@ -38,8 +46,8 @@ export function Contact() {
                     setIsSubmitted(false);
                 }, 5000);
             } else {
-                const errorData = data;
-                throw new Error(errorData.message || 'Failed to send message');
+                const errorMsg = data.message || `Server Error (${response.status})`;
+                throw new Error(errorMsg);
             }
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -48,15 +56,18 @@ export function Contact() {
             const subject = `Contact Request from ${fullName || 'Anonymous'}`;
             const body = `Name: ${fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`;
             const mailtoLink = `mailto:autogrow13@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            // Use the specific error message if it's not the default one, otherwise show the friendly message
-            const displayError = error instanceof Error && error.message !== 'Failed to send message'
-                ? `Error: ${error.message}. Opening email client...`
-                : 'Unable to send message at this time. Opening your email client to send the message...';
+            let errorMessage = 'Unable to send message at this time.';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            } else if (typeof error === 'string') {
+                errorMessage = error;
+            }
+            const displayError = `Error: ${errorMessage}. Opening email client in 10s...`;
             setError(displayError);
-            // Small delay to show the message before opening email client
+            // Longer delay to allow reading the error
             setTimeout(() => {
                 window.location.href = mailtoLink;
-            }, 2500);
+            }, 10000);
         } finally {
             setIsLoading(false);
         }
