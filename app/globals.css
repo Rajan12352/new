@@ -17,42 +17,22 @@
   --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --primary: #6366f1;
-  /* Indigo 500 */
+  --background: #020617;
+  /* Slate 950 */
+  --foreground: #f8fafc;
+  --primary: #818cf8;
+  /* Indigo 400 */
   --primary-foreground: #ffffff;
-  --secondary: #06b6d4;
-  /* Cyan 500 */
-  --secondary-foreground: #ffffff;
+  --secondary: #22d3ee;
+  /* Cyan 400 */
+  --secondary-foreground: #0f172a;
   --accent: #f472b6;
-  /* Pink 400 */
   --accent-foreground: #ffffff;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --border: #93c5fd;
-}
-.dark {
-  :root {
-    --background: #0f172a;
-    /* Slate 900 */
-    --foreground: #f8fafc;
-    --primary: #818cf8;
-    /* Indigo 400 */
-    --primary-foreground: #ffffff;
-    --secondary: #22d3ee;
-    /* Cyan 400 */
-    --secondary-foreground: #0f172a;
-    --accent: #f472b6;
-    --accent-foreground: #ffffff;
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
-    --card: #1e293b;
-    --card-foreground: #f8fafc;
-    --border: #60a5fa;
-  }
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --border: #60a5fa;
 }
 body {
   background-color: var(--background);
