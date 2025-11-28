@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
@@ -7,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
 export function Contact() {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -19,12 +17,10 @@ export function Contact() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
-
         try {
             const response = await fetch('/api/contact', {
                 method: 'POST',
@@ -33,13 +29,10 @@ export function Contact() {
                 },
                 body: JSON.stringify(formData),
             });
-
             const data = await response.json();
-
             if (response.ok) {
                 setIsSubmitted(true);
                 setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" });
-
                 // Reset success message after 5 seconds
                 setTimeout(() => {
                     setIsSubmitted(false);
@@ -50,31 +43,30 @@ export function Contact() {
             }
         } catch (error) {
             console.error('Error submitting form:', error);
-
             // Fallback to mailto
             const fullName = `${formData.firstName} ${formData.lastName}`.trim();
             const subject = `Contact Request from ${fullName || 'Anonymous'}`;
             const body = `Name: ${fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`;
             const mailtoLink = `mailto:autogrow13@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            setError('Unable to send message at this time. Opening your email client to send the message...');
-
+            // Use the specific error message if it's not the default one, otherwise show the friendly message
+            const displayError = error instanceof Error && error.message !== 'Failed to send message'
+                ? `Error: ${error.message}. Opening email client...`
+                : 'Unable to send message at this time. Opening your email client to send the message...';
+            setError(displayError);
             // Small delay to show the message before opening email client
             setTimeout(() => {
                 window.location.href = mailtoLink;
-            }, 1500);
+            }, 2500);
         } finally {
             setIsLoading(false);
         }
     };
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
     };
-
     return (
         <section id="contact" className="py-20 md:py-32 relative overflow-hidden bg-muted/30">
             <div className="container mx-auto px-4">
@@ -91,9 +83,7 @@ export function Contact() {
                     <p className="text-muted-foreground text-lg md:text-xl">
                         Ready to transform your business with AI automation? Contact us to learn more.
                     </p>
-
                 </motion.div>
-
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                     {/* Contact Information */}
                     <motion.div
@@ -109,7 +99,6 @@ export function Contact() {
                                 Have questions? We're here to help. Reach out to us and we'll get back to you as soon as possible.
                             </p>
                         </div>
-
                         <div className="space-y-6">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 rounded-lg bg-primary/10">
@@ -120,7 +109,6 @@ export function Contact() {
                                     <p className="text-muted-foreground">autogrow13@gmail.com</p>
                                 </div>
                             </div>
-
                             <div className="flex items-start gap-4">
                                 <div className="p-3 rounded-lg bg-primary/10">
                                     <Phone className="h-6 w-6 text-primary" />
@@ -130,7 +118,6 @@ export function Contact() {
                                     <p className="text-muted-foreground">+91 7603917369</p>
                                 </div>
                             </div>
-
                             <div className="flex items-start gap-4">
                                 <div className="p-3 rounded-lg bg-primary/10">
                                     <MapPin className="h-6 w-6 text-primary" />
@@ -144,7 +131,6 @@ export function Contact() {
                                 </div>
                             </div>
                         </div>
-
                         <div className="pt-8">
                             <h4 className="font-semibold mb-4">Business Hours</h4>
                             <div className="space-y-2 text-sm text-muted-foreground">
@@ -154,7 +140,6 @@ export function Contact() {
                             </div>
                         </div>
                     </motion.div>
-
                     {/* Contact Form */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
@@ -219,7 +204,6 @@ export function Contact() {
                                                     />
                                                 </div>
                                             </div>
-
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div className="space-y-2">
                                                     <label htmlFor="email" className="text-sm font-medium">
@@ -238,7 +222,6 @@ export function Contact() {
                                                     />
                                                 </div>
                                             </div>
-
                                             <div className="space-y-2">
                                                 <label htmlFor="phone" className="text-sm font-medium">
                                                     Phone
@@ -254,7 +237,6 @@ export function Contact() {
                                                     autoComplete="off"
                                                 />
                                             </div>
-
                                             <div className="space-y-2">
                                                 <label htmlFor="message" className="text-sm font-medium">
                                                     Message *
@@ -270,13 +252,11 @@ export function Contact() {
                                                     disabled={isLoading}
                                                 />
                                             </div>
-
                                             {error && (
                                                 <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
                                                     <p className="text-sm text-red-500">{error}</p>
                                                 </div>
                                             )}
-
                                             <Button
                                                 type="submit"
                                                 className="w-full h-11 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
@@ -296,7 +276,6 @@ export function Contact() {
                                 </CardContent>
                             </Card>
                         </div>
-
                     </motion.div>
                 </div>
             </div>
