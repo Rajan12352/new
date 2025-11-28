@@ -9,7 +9,11 @@ export async function POST(req: Request) {
         if (!email || !fullName || !message) {
             return NextResponse.json({ success: false, message: 'Missing required fields' }, { status: 400 });
         }
+        console.log('Contact API received request');
         // Validate environment variables
+        const hasUser = !!process.env.GMAIL_USER;
+        const hasPass = !!process.env.GMAIL_PASS;
+        console.log(`Env vars check - User: ${hasUser}, Pass: ${hasPass}`);
         if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
             console.error('Missing email credentials in environment variables');
             return NextResponse.json(
@@ -18,6 +22,7 @@ export async function POST(req: Request) {
             );
         }
         // Create a transporter using Gmail with explicit SMTP settings
+        console.log('Creating transporter...');
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -26,7 +31,15 @@ export async function POST(req: Request) {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_PASS,
             },
+            // Add timeouts to prevent hanging
+            connectionTimeout: 10000, // 10 seconds
+            greetingTimeout: 5000,    // 5 seconds
+            socketTimeout: 10000,     // 10 seconds
         });
+        // Skip verify() in production to save time, unless debugging is needed
+        // console.log('Verifying transporter connection...');
+        // await transporter.verify();
+        // console.log('Transporter verified');
         // Common styles for emails
         const emailStyles = `
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
