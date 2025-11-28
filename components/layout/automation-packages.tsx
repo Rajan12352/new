@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Check, TrendingUp, Users, MessageSquare, HeadphonesIcon, Sparkles, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
@@ -7,10 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
 export function AutomationPackages() {
     const [expandedPackage, setExpandedPackage] = useState<number | null>(null);
-
     const packages = [
         {
             name: "Lead Generation Pack",
@@ -161,12 +158,10 @@ export function AutomationPackages() {
             ]
         }
     ];
-
     const standardPackages = packages.slice(0, 4);
     const fullSuite = packages[4];
-
     return (
-        <section id="automation-packages" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-background via-muted/20 to-background">
+        <section id="automation-packages" className="py-12 md:py-32 relative overflow-hidden bg-gradient-to-b from-background via-muted/20 to-background">
             <div className="container mx-auto px-4">
                 {/* Header */}
                 <motion.div
@@ -187,7 +182,6 @@ export function AutomationPackages() {
                         Choose a package that solves your specific business challenge, or combine multiple for complete automation.
                     </p>
                 </motion.div>
-
                 {/* Standard Packages Grid (2x2) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
                     {standardPackages.map((pkg, index) => (
@@ -238,7 +232,6 @@ export function AutomationPackages() {
                                                 ))}
                                             </ul>
                                         </div>
-
                                         {/* Expandable Details */}
                                         {expandedPackage === index && (
                                             <motion.div
@@ -259,13 +252,11 @@ export function AutomationPackages() {
                                                         ))}
                                                     </ul>
                                                 </div>
-
                                                 {/* Expected ROI */}
                                                 <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
                                                     <h4 className="font-semibold mb-1 text-sm text-green-700 dark:text-green-400">Expected ROI:</h4>
                                                     <p className="text-sm text-green-600 dark:text-green-300">{pkg.roi}</p>
                                                 </div>
-
                                                 {/* Deliverables */}
                                                 <div>
                                                     <h4 className="font-semibold mb-2 text-sm">Deliverables:</h4>
@@ -280,7 +271,6 @@ export function AutomationPackages() {
                                                 </div>
                                             </motion.div>
                                         )}
-
                                         <div className="mt-auto">
                                             {/* Toggle Button */}
                                             <Button
@@ -295,7 +285,6 @@ export function AutomationPackages() {
                                                     <>View Full Details <ChevronDown className="ml-2 h-4 w-4" /></>
                                                 )}
                                             </Button>
-
                                             {/* CTA */}
                                             <Link href="/contact-sales" className="block">
                                                 <Button className="w-full" variant="outline">
@@ -309,7 +298,6 @@ export function AutomationPackages() {
                         </motion.div>
                     ))}
                 </div>
-
                 {/* Full Suite Featured Card */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -385,7 +373,6 @@ export function AutomationPackages() {
                         </Card>
                     </div>
                 </motion.div>
-
                 {/* Custom Package CTA */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
