@@ -85,12 +85,14 @@ export function Hero() {
                                 </Button>
                             </div>
                         </motion.div>
+                        {/* Mobile Background Glow */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-primary/20 blur-[100px] rounded-full -z-10 md:hidden pointer-events-none" />
                         {/* Stats */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.4 }}
-                            className="w-full max-w-lg"
+                            className="w-full max-w-lg bg-background/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:bg-transparent md:backdrop-blur-none md:border-none md:p-0"
                         >
                             {/* Live Indicator */}
                             <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
@@ -156,7 +158,7 @@ export function Hero() {
                         className="relative flex items-center justify-center"
                     >
                         {/* Glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-3xl"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-3xl md:blur-3xl opacity-70 md:opacity-100"></div>
                         {/* SVG Bot Illustration */}
                         <div className="relative w-full max-w-lg aspect-square">
                             <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
