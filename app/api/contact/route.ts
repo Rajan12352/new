@@ -1,30 +1,30 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-
 export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { name, firstName, lastName, email, phone, message, companyName, companySize } = body;
-
         // Construct the full name based on available fields
         const fullName = name || `${firstName || ''} ${lastName || ''}`.trim();
-
         if (!email || !fullName || !message) {
             return NextResponse.json({ success: false, message: 'Missing required fields' }, { status: 400 });
         }
-
-        // Create a transporter using Gmail with connection pooling
+        // Validate environment variables
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+            console.error('Missing email credentials in environment variables');
+            return NextResponse.json(
+                { success: false, message: 'Server configuration error: Missing email credentials' },
+                { status: 500 }
+            );
+        }
+        // Create a transporter using Gmail
         const transporter = nodemailer.createTransport({
             service: 'gmail',
-            pool: true, // Use pooled connections
-            maxConnections: 1, // Limit to 1 connection for Gmail to avoid blocking
-            maxMessages: 100, // Limit messages per connection
             auth: {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_PASS,
             },
         });
-
         // Common styles for emails
         const emailStyles = `
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,19 +36,16 @@ export async function POST(req: Request) {
             border-radius: 8px;
             overflow: hidden;
         `;
-
         const headerStyle = `
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             color: white;
             padding: 20px;
             text-align: center;
         `;
-
         const contentStyle = `
             padding: 30px;
             background-color: #ffffff;
         `;
-
         const footerStyle = `
             background-color: #f9f9f9;
             padding: 15px;
@@ -57,7 +54,6 @@ export async function POST(req: Request) {
             color: #888;
             border-top: 1px solid #e0e0e0;
         `;
-
         // Email to Admin (You)
         const adminMailOptions = {
             from: `"AutoGrow Contact Form" <${process.env.GMAIL_USER}>`,
@@ -105,7 +101,6 @@ export async function POST(req: Request) {
                 </div>
             `,
         };
-
         // Confirmation Email to User
         const userMailOptions = {
             from: `"AutoGrow Team" <${process.env.GMAIL_USER}>`,
@@ -134,13 +129,11 @@ export async function POST(req: Request) {
                 </div>
             `,
         };
-
         // Send both emails
         await Promise.all([
             transporter.sendMail(adminMailOptions),
             transporter.sendMail(userMailOptions),
         ]);
-
         console.log(`Emails sent successfully to ${email} and admin`);
         return NextResponse.json({ success: true, message: 'Emails sent successfully' }, { status: 200 });
     } catch (error: any) {
