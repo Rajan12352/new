@@ -32,6 +32,8 @@
   --muted-foreground: #94a3b8;
   --card: #0f172a;
   --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
   --border: #60a5fa;
 }
 body {
