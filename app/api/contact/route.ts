@@ -32,9 +32,9 @@ export async function POST(req: Request) {
                 pass: process.env.GMAIL_PASS,
             },
             // Add timeouts to prevent hanging
-            connectionTimeout: 10000, // 10 seconds
-            greetingTimeout: 5000,    // 5 seconds
-            socketTimeout: 10000,     // 10 seconds
+            connectionTimeout: 30000, // 30 seconds
+            greetingTimeout: 30000,   // 30 seconds
+            socketTimeout: 30000,     // 30 seconds
         });
         // Skip verify() in production to save time, unless debugging is needed
         // console.log('Verifying transporter connection...');
