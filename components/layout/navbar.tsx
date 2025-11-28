@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Bot, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ModeToggle } from "@/components/mode-toggle";
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     return (
@@ -15,27 +16,25 @@ export function Navbar() {
                     </div>
                     <span className="text-xl font-bold">AutoGrow</span>
                 </Link>
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-8">
-                    <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-                        Features
-                    </Link>
-                    <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
-                        Pricing
-                    </Link>
-                    <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">
-                        About
-                    </Link>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="hidden md:block">
-                        <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                <div className="hidden md:flex items-center gap-6">
+                    {/* Desktop Menu */}
+                    <div className="flex items-center gap-6">
+                        <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
+                        <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">Pricing</Link>
+                        <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">About</Link>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <ModeToggle />
+                        <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
                             <Link href="#contact">Get Started</Link>
                         </Button>
                     </div>
+                </div>
+                <div className="flex items-center gap-4 md:hidden">
+                    <ModeToggle />
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 z-50 relative"
+                        className="p-2 z-50 relative"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? (
