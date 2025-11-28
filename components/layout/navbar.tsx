@@ -1,12 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Bot, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ModeToggle } from "@/components/mode-toggle";
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     return (
         <nav className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-4 flex h-16 items-center justify-between">
@@ -24,17 +28,15 @@ export function Navbar() {
                         <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">About</Link>
                     </div>
                     <div className="flex items-center gap-4">
-                        <ModeToggle />
                         <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
                             <Link href="#contact">Get Started</Link>
                         </Button>
                     </div>
                 </div>
-                <div className="flex items-center gap-4 md:hidden">
-                    <ModeToggle />
+                <div className="flex items-center gap-4 md:hidden relative z-50">
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="p-2 z-50 relative"
+                        className="p-2"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? (
@@ -47,13 +49,21 @@ export function Navbar() {
             </div>
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
-                {isMobileMenuOpen && (
+                {isMobileMenuOpen && mounted && createPortal(
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center md:hidden"
+                        className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center md:hidden"
                     >
+                        <div className="absolute top-4 right-4">
+                            <button
+                                className="p-2"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                <X className="h-6 w-6" />
+                            </button>
+                        </div>
                         <div className="flex flex-col gap-8 text-center">
                             <Link
                                 href="#features"
@@ -80,7 +90,8 @@ export function Navbar() {
                                 <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
                             </Button>
                         </div>
-                    </motion.div>
+                    </motion.div>,
+                    document.body
                 )}
             </AnimatePresence>
             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-primary to-secondary opacity-50"></div>
